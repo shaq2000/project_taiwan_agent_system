@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ("partials/header") %>
+    <title>Profile</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+  </head>
+  <body>
+    <%- include ("partials/nav") %>
+    <div class="py-5 text-center">
+      <h2>Hello, <%= user.name %> </h2>
+      <p class="lead">Here is your performance summary.</p>
+    </div>
+    <section class="upcontainer">
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Customer Count: <%= data.length %> </h5>
+          <p class="card-text">You have successfully sold our product to <%= data.length %> customers, keep going! </p>
+          <a href="/profile/customers/insert" class="btn btn-primary">Add new Customers</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Sum of Health Sales: <%= healthSum %> </h5>
+          <p class="card-text">You have successfully sold <%= healthSum %> dollars for health products. Well Done !</p>
+          <a href="/profile/customers/" class="btn btn-primary">Go to Customer Overview</a>
+        </div>
+      </div>
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Sum of Saving Sales: <%= savingSum %> </h5>
+          <p class="card-text">You have successfully sold <%= savingSum %> dollars for saving products. Well Done !</p>
+          <a href="/profile/customers/" class="btn btn-primary">Go to Customer Overview</a>
+        </div>
+      </div>
+   </section>
+    
+    <!-- <% if (posts.length > 0) { %> <% for (let i = 0; i < posts.length; i++) { %>
+    <div class="card" style="width: 18rem">
+      <div class="card-body">
+        <h5 class="card-title"><%= posts[i].title %></h5>
+        <p class="card-text"><%= posts[i].content %></p>
+        <a href="#" class="btn btn-primary"><%= posts[i].date %> </a>
+      </div>
+    </div> -->
+    <!-- <% } %> <% } %> -->
+
+  </body>
+</html>

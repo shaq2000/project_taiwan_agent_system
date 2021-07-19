@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ("partials/header") %>
+    <title>Add New Customer</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <%- include ("partials/nav") %>
+    <section class="upcontainer">
+        <div class="py-5 text-center">
+            <h2>Customer form</h2>
+            <p class="lead">Please enter information about your customer.</p>
+            <form action="/profile/customers/insert" method="POST">
+                <div class="form">
+                    <label for="id">ID:</label>
+                    <input type="number" id="id" name="id">
+                </div>
+                <div class="form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name">
+                </div>
+                <div class="form">
+                    <label for="sex">Sex:</label>
+                    <span>
+                        <input type="radio" id="male" name="sex" value="male">
+                        <label for="male">Male</label>
+                        <input type="radio" id="female" name="sex" value="female">
+                        <label for="female">Female</label>
+                        <input type="radio" id="other" name="sex" value="other">
+                        <label for="other">Other</label>
+                    </span>
+                </div> 
+                <div class="form">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age">
+                </div>
+                <div class="form">
+                    <label for="health">Health Sales:</label>
+                    <input type="number" id="health" name="health">
+                </div>
+                <div class="form">
+                    <label for="saving">Saving Sales:</label>
+                    <input type="number" id="saving" name="saving">
+                </div>
+                <div class="form">
+                    <label for="lastbuy">Last Buy:</label>
+                    <input type="date" id="lastbuy" name="lastbuy">
+                </div>
+                <br>
+                <button class="w-30 btn btn-primary btn-lg">Submit</button>
+            </form>
+        </div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  .upcontainer {
+    padding: 2rem;
+    display: flex;
+    justify-content: space-around;
+    .up_box {
+      width: 30%;
+    }
+    .form {
+      padding: 0.5rem;
+    }
+  }
+  .down_table {
+    padding: 2rem;
+  }
+}
+.invisible {
+  display: none;
+}
+
+a {
+  text-decoration: none;
+}

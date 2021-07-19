@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include ("partials/header") %>
+    <title>Customers Overview</title>
+    <link rel="stylesheet" href="/styles/styles.css">
+</head>
+<body>
+    <%- include ("partials/nav") %>
+    <section class="upcontainer">
+        <div class="up_box">
+            <h5>Demographic</h5>
+            <hr>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="Agebelow18">
+              <label class="form-check-label" for="Agebelow18">
+                Age below 18
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="Ageabove30">
+              <label class="form-check-label" for="Ageabove30">
+                Age above 30
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="Male">
+              <label class="form-check-label" for="Male">
+                Male
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="Female">
+              <label class="form-check-label" for="Female">
+                Female
+              </label>
+            </div>
+        </div>
+        <div class="up_box">
+            <h5>History</h5>
+            <hr>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Healthbelow300">
+                <label class="form-check-label" for="Healthbelow300">
+                  Health below 300
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Healthbelow500">
+                <label class="form-check-label" for="Healthbelow500">
+                  Health below 500
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Savingbelow300">
+                <label class="form-check-label" for="Savingbelow300">
+                  Saving below 300
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="Savingbelow500">
+                <label class="form-check-label" for="Savingbelow500">
+                  Saving below 500
+                </label>
+              </div>
+        </div>
+        <div class="up_box">
+            <h5>Timing</h5>
+            <hr>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="LastBuywithin90days">
+                <label class="form-check-label" for="LastBuywithin90days">
+                  Last Buy within 90 days
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="LastBuywithin180days">
+                <label class="form-check-label" for="LastBuywithin180days">
+                  Last Buy within 180 days
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="LastBuywithin360days">
+                <label class="form-check-label" for="LastBuywithin360days">
+                  Last Buy within 360 days
+                </label>
+              </div>
+        </div>
+    </section>
+    
+     
+    <!-- down table -->
+    <section class="down_table">
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Age</th>
+                <th scope="col">Health</th>
+                <th scope="col">Saving</th>
+                <th scope="col">Last Buy</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <% data.forEach(customer => { %>
+                <tr>
+                  <th scope="row"><%= customer.id %></th>
+                  <td><%= customer.name %></td>
+                  <td><%= customer.sex %></td>
+                  <td><%= customer.age %></td>
+                  <td><%= customer.product.health %></td>
+                  <td><%= customer.product.saving %></td>
+                  <td><%= moment(customer.lastbuy).format( 'MMM-DD-YYYY') %></td>
+                  <td><a class="badge rounded-pill bg-warning text-dark" href="/profile/customers/edit/<%= customer.id %>">Edit Customer</a></td>
+                  <td>
+                    <form action="/profile/customers/delete/<%= customer.id %>?_method=DELETE" method="POST">
+                      <button class="badge rounded-pill bg-danger">Delete</button>
+                    </form>
+                  </td>
+                </tr> 
+              <% }) %> 
+              
+            </tbody>
+          </table>    
+    </section>
+</body>
+<script type="text/javascript">
+  let checkboxes = document.querySelectorAll('input[type=checkbox]');
+  checkboxes.forEach(
+    checkbox => {checkbox.addEventListener('change', function() {
+      let checked_boxes = []; 
+      document.querySelectorAll('input[type=checkbox]').forEach(
+        checked_box => {  
+          if (checked_box.checked) {
+            checked_boxes.push(checked_box.id);
+          }
+        }
+      )
+      fixTable(checked_boxes);
+      
+    })}
+  );
+
+  function fixTable(checked_boxes) {
+    document.querySelectorAll("tr.invisible").forEach(tr => {
+      tr.classList.remove("invisible");
+    })
+    checked_boxes.forEach(type => {
+      document.querySelectorAll("td").forEach(td => {
+        if (type == 'Agebelow18' && td.cellIndex == 3 && td.innerHTML > 18) {
+          td.parentElement.classList.add("invisible");  
+        }
+        if (type == 'Ageabove30' && td.cellIndex == 3 && td.innerHTML < 30) {
+          td.parentElement.classList.add("invisible");
+        }
+        if (type == 'Male' && td.cellIndex == 2 && td.innerHTML !== 'male') {
+          td.parentElement.classList.add("invisible");
+        }
+        if (type == 'Female' && td.cellIndex == 2 && td.innerHTML !== 'female') {
+          td.parentElement.classList.add("invisible");
+        }
+        if (type == 'Healthbelow300' && td.cellIndex == 4 && td.innerHTML > 300) {
+          td.parentElement.classList.add("invisible");
+        }
+        if (type == 'Healthbelow500' && td.cellIndex == 4 && td.innerHTML > 500) {
+          td.parentElement.classList.add("invisible");
+        }
+        if (type == 'Savingbelow300' && td.cellIndex == 5 && td.innerHTML > 300) {
+          td.parentElement.classList.add("invisible");
+        }
+        if (type == 'Savingbelow500' && td.cellIndex == 5 && td.innerHTML > 500) {
+          td.parentElement.classList.add("invisible");
+        }
+        if (type == 'LastBuywithin90days' && td.cellIndex == 6 && (new Date() - new Date(td.innerHTML)) / (1000*60*60*24) > 90) {
+          td.parentElement.classList.add("invisible");
+        }
+        if (type == 'LastBuywithin180days' && td.cellIndex == 6 && (new Date() - new Date(td.innerHTML)) / (1000*60*60*24) > 180) {
+          td.parentElement.classList.add("invisible");
+        }
+        if (type == 'LastBuywithin360days' && td.cellIndex == 6 && (new Date() - new Date(td.innerHTML)) / (1000*60*60*24) > 360) {
+          td.parentElement.classList.add("invisible");
+        }
+      })
+
+    })
+  }
+
+</script>
+</html>
