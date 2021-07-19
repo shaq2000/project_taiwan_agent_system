@@ -6,7 +6,6 @@ const dotenv = require("dotenv");
 dotenv.config();
 const passport = require("passport");
 const methodOverride = require("method-override");
-
 const authRoute = require("./routes/auth-route");
 require("./config/passport");
 const profileRoute = require("./routes/profile-route");
