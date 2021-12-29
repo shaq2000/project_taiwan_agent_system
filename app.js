@@ -4,6 +4,7 @@ const ejs = require("ejs");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 dotenv.config();
+
 const passport = require("passport");
 const methodOverride = require("method-override");
 const authRoute = require("./routes/auth-route");
@@ -13,6 +14,7 @@ const cookieSession = require("cookie-session");
 const session = require("express-session");
 const flash = require("connect-flash");
 
+// middleware
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
