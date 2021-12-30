@@ -46,7 +46,7 @@
                 </div>
                 <div class="form">
                     <label for="lastbuy">Last Buy:</label>
-                    <input type="date" id="lastbuy" name="lastbuy" value="<%= data.lastbuy %>">
+                    <input type="datetime" id="lastbuy" name="lastbuy" value="<%= moment(data.lastbuy).format('YYYY/MM/DD') %>">
                 </div>
                 <br>
                 <button class="w-30 btn btn-primary btn-lg">Submit</button>

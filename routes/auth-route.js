@@ -30,7 +30,6 @@ router.get("/signup", (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  console.log(req.body);
   let { name, email, password } = req.body;
   //check if the data is already in db
   const emailExist = await User.findOne({ email });

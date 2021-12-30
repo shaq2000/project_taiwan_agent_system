@@ -13,15 +13,14 @@ const profileRoute = require("./routes/profile-route");
 const cookieSession = require("cookie-session");
 const session = require("express-session");
 const flash = require("connect-flash");
+const moment = require("moment");
 
-// middleware
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(methodOverride("_method"));
 mongoose.set("useFindAndModify", false);
-
 app.use(
   session({
     secret: process.env.SECRET,
@@ -36,6 +35,10 @@ app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg");
   res.locals.error_msg = req.flash("error_msg");
   res.locals.error = req.flash("error");
+  next();
+});
+app.use((req, res, next) => {
+  res.locals.moment = moment;
   next();
 });
 app.use("/auth", authRoute);
